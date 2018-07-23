@@ -1,6 +1,6 @@
 # gatlingloadtest
 ### Usage
-1. go get github.com/Sirupsen/logrus<br>
+1. Update Scenarios.scala as per your requirement<br>
 2. mvn gatling:execute -Dusers=1000 -Dduration=60 -DbaseUrl=http://localhost:6767
 
 ### Reference
