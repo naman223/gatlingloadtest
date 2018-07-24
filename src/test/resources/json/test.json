@@ -1,0 +1,16 @@
+{
+  "deployment_id": "${deploymentId}",
+  "deployment_name": "redis",
+  "placement": {
+    "pool_id": "default"
+  },
+  "quantities": {
+    "redis": 2
+  },
+  "stack": {
+    "content": "redis:\n  image: \"redis:latest\"\n",
+    "service_id": "redis",
+    "service_name": "${deploymentName}",
+    "subtype": "service"
+  }
+}

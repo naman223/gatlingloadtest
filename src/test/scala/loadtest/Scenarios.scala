@@ -73,4 +73,22 @@ object Scenarios {
                 .check(status.is(200))
             )
         }
+
+
+        val scn_JsonCreateUsingFile = scenario("DeploymentUsingFile")
+                .during(Conf.duration) {
+                feed(browse_guids)
+                .exec(http("Deployment")
+                    .post("/api/v2/deployments/")
+                    .body(ElFileBody("src/test/resources/json/test.json")).asJSON
+                    .headers(Headers.http_header)
+                    .check(status.is(200))
+                )
+                .pause(5)
+                .exec(http("DeleteDeployment")
+                    .delete("/api/v2/deployments/${deploymentId}")
+                    .headers(Headers.http_header)
+                    .check(status.is(200))
+                )
+        }
 }
