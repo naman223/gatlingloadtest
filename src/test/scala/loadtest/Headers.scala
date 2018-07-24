@@ -1,4 +1,4 @@
-package se.callistaenterprise.goblog
+package loadtest
 
 object Headers {
     // HTTP Headers

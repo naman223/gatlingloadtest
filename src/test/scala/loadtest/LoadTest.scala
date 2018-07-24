@@ -1,4 +1,4 @@
-package se.callistaenterprise.goblog
+package loadtest
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
@@ -40,9 +40,9 @@ class LoadTest extends Simulation {
 
     )
     .assertions(
-        global.responseTime.max.lessThan(3000),
-        forAll.failedRequests.count.lessThan(10),
-        global.successfulRequests.percent.greaterThan(95),
-        global.successfulRequests.percent.greaterThan(95)
+        global.responseTime.max.lte(3000),
+        forAll.failedRequests.count.lte(10),
+        global.successfulRequests.percent.gte(95),
+        global.successfulRequests.percent.gte(95)
     )
 }
