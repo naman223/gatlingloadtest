@@ -61,6 +61,18 @@ object Scenarios {
                 .check(jsonPath("$..state").is("Running"))
             )
             .pause(2)
+            .exec(http("SearchDeployment")
+                .post("/api/search/")
+                .body(StringBody("""{
+                                    "Query": "${deploymentId}"
+                                    }
+                                    """)).asJSON
+                .headers(Headers.http_header)
+                .check(status.is(200))
+                .check(jsonPath("$..deployment_id").is("${deploymentId}"))
+                .check(jsonPath("$..State").is("Running"))
+             )
+            .pause(2)
             .exec(http("StopDeployment")
                 .post("/api/v2/deployments/${deploymentId}/stop")
                 .headers(Headers.http_header)
@@ -74,21 +86,20 @@ object Scenarios {
             )
         }
 
-
         val scn_JsonCreateUsingFile = scenario("DeploymentUsingFile")
-                .during(Conf.duration) {
-                feed(browse_guids)
-                .exec(http("Deployment")
-                    .post("/api/v2/deployments/")
-                    .body(ElFileBody("src/test/resources/json/test.json")).asJSON
-                    .headers(Headers.http_header)
-                    .check(status.is(200))
-                )
-                .pause(5)
-                .exec(http("DeleteDeployment")
-                    .delete("/api/v2/deployments/${deploymentId}")
-                    .headers(Headers.http_header)
-                    .check(status.is(200))
+            .during(Conf.duration) {
+            feed(browse_guids)
+            .exec(http("Deployment")
+                .post("/api/v2/deployments/")
+                .body(ElFileBody("src/test/resources/json/test.json")).asJSON
+                .headers(Headers.http_header)
+                .check(status.is(200))
+            )
+            .pause(5)
+            .exec(http("DeleteDeployment")
+                .delete("/api/v2/deployments/${deploymentId}")
+                .headers(Headers.http_header)
+                .check(status.is(200))
                 )
         }
 }

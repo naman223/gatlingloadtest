@@ -18,15 +18,15 @@ class LoadTest extends Simulation {
     }
 
     setUp (
-        /* rampUsers(nbUsers) over(duration): Injects a given number of users with a linear ramp over a given duration.
+        /* rampUsers(nbUsers) over(duration): Injects a given number of users with a linear ramp over a given duration. */
         Scenarios.scn_JsonCreate
             .inject(rampUsers(Conf.users) over (Scenarios.rampUpTimeSecs seconds))
-            .protocols(Conf.httpConf) */
+            .protocols(Conf.httpConf)
 
         /* same above scenario but using Json File to Deploy. */
-        Scenarios.scn_JsonCreateUsingFile
+        /* Scenarios.scn_JsonCreateUsingFile
             .inject(rampUsers(Conf.users) over (Scenarios.rampUpTimeSecs seconds))
-            .protocols(Conf.httpConf)
+            .protocols(Conf.httpConf) */
 
 
         /* Scenarios.scn_JsonCreate
